@@ -25,6 +25,7 @@ std::string Form::serialize()
   std::stringstream ss;
 
   ss << "<form method='post'>";
+  ss << "<input type='hidden' name='_RAPTOR_SESSION' value='65GGDDE457898976455445###$'>";
   ss << "<table style='border-collapse: collapse; position: absolute; left: 0px; top: 0px; width: 100%; height: 100%'>";
   ss << "<tr>";
 

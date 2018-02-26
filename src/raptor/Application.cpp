@@ -14,15 +14,28 @@ Application::Application(int argc, char* argv[])
 int Application::begin_request_handler(struct mg_connection* conn)
 {
   mg_request_info* request_info = mg_get_request_info(conn);
-
   Application* context = (Application*)request_info->user_data;
+  std::shared_ptr<mongoose::PostData> postData;
 
-  std::cout << request_info->request_method << std::endl;
+  if(request_info->request_method == std::string("POST"))
+  {
+    postData = mongoose::PostData::mg_read(conn, 2048);
+  }
 
-  std::cout << request_info->uri << std::endl;
+  if(postData)
+  {
+    std::string sessionId = postData->getVar("_RAPTOR_SESSION");
 
-  if(request_info->query_string)
-    std::cout << request_info->query_string << std::endl;
+    if(sessionId.length() > 0)
+    {
+      // TODO populate session
+    }
+  }
+
+  //std::cout << request_info->uri << std::endl;
+
+  //if(request_info->query_string)
+  //  std::cout << request_info->query_string << std::endl;
 
   // Check POST data for session.
   // If not exists, create new session and add new startInfo form.

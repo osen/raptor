@@ -30,14 +30,25 @@ std::shared_ptr<PostData> PostData::mg_read(mg_connection* conn, size_t maxLen)
 
   if(length <= 0) return rtn;
 
-  rtn->data.resize(length / size(char));
+  rtn->data.resize(length / sizeof(char));
 
   return rtn;
 }
 
 std::string PostData::getVar(std::string name)
 {
-  return "";
+  std::vector<char> tmp;
+  tmp.resize(data.size());
+
+  int result = mg_get_var(&data.at(0), data.size() * sizeof(char),
+    name.c_str(), &tmp.at(0), tmp.size() * sizeof(char));
+
+  if(result == -1 || result == -2)
+  {
+    return "";
+  }
+
+  return &tmp.at(0);
 }
 
 }
