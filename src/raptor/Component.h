@@ -23,6 +23,8 @@ public:
   void setPadding(int left, int right, int top, int bottom);
   void getPadding(int& left, int& right, int& top, int& bottom);
 
+  void setWidth(int width);
+
 protected:
   zero_initialized<bool> expand;
   zero_initialized<int> borderWidth;
@@ -30,6 +32,7 @@ protected:
   zero_initialized<int> rightPadding;
   zero_initialized<int> topPadding;
   zero_initialized<int> bottomPadding;
+  zero_initialized<int> width;
 
   std::string generateStyle();
 

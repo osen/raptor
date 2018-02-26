@@ -24,7 +24,7 @@ std::string Form::serialize()
 {
   std::stringstream ss;
 
-  ss << "<form>";
+  ss << "<form method='post'>";
   ss << "<table style='border-collapse: collapse; position: absolute; left: 0px; top: 0px; width: 100%; height: 100%'>";
   ss << "<tr>";
 

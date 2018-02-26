@@ -18,7 +18,11 @@ add_library(raptor
   src/raptor/mongoosemm.cpp
 )
 
-target_link_libraries(raptor pthread)
+if(WIN32)
+  target_link_libraries(raptor)
+else()
+  target_link_libraries(raptor pthread)
+endif()
 
 add_executable(helloworld
   src/helloworld/main.cpp

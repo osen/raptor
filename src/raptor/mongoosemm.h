@@ -5,9 +5,22 @@
 #include "mongoose.h"
 
 #include <memory>
+#include <string>
+#include <vector>
 
 namespace mongoose
 {
+
+class PostData
+{
+public:
+  static std::shared_ptr<PostData> mg_read(mg_connection* conn, size_t maxLen);
+
+  std::string getVar(std::string name);
+
+private:
+  std::vector<char> data;
+};
 
 class Context
 {

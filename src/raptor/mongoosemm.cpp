@@ -19,4 +19,25 @@ Context::~Context()
   }
 }
 
+std::shared_ptr<PostData> PostData::mg_read(mg_connection* conn, size_t maxLen)
+{
+  std::shared_ptr<PostData> rtn = std::make_shared<PostData>();
+
+  rtn->data.resize(maxLen);
+
+  size_t length = ::mg_read(conn, &rtn->data.at(0),
+    rtn->data.size() * sizeof(char));
+
+  if(length <= 0) return rtn;
+
+  rtn->data.resize(length / size(char));
+
+  return rtn;
+}
+
+std::string PostData::getVar(std::string name)
+{
+  return "";
+}
+
 }

@@ -15,6 +15,7 @@ protected:
   std::string serialize();
 
 public:
+  TextBox();
   void setPassword(bool password);
   bool getPassword();
 

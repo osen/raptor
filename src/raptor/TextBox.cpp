@@ -3,6 +3,11 @@
 namespace raptor
 {
 
+TextBox::TextBox()
+{
+
+}
+
 std::string TextBox::serialize()
 {
   std::string type;
@@ -16,7 +21,14 @@ std::string TextBox::serialize()
     type = "text";
   }
 
-  return "<input type='" + type + "' style='"+generateStyle()+"' value='" + text + "' />";
+  std::string widthStyle;
+
+  if(width == 0)
+  {
+    widthStyle = ";width: 10em";
+  }
+
+  return "<input name='fred' type='" + type + "' style='"+generateStyle()+widthStyle+"' value='" + text + "' />";
 }
 
 

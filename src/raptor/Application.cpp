@@ -17,6 +17,13 @@ int Application::begin_request_handler(struct mg_connection* conn)
 
   Application* context = (Application*)request_info->user_data;
 
+  std::cout << request_info->request_method << std::endl;
+
+  std::cout << request_info->uri << std::endl;
+
+  if(request_info->query_string)
+    std::cout << request_info->query_string << std::endl;
+
   // Check POST data for session.
   // If not exists, create new session and add new startInfo form.
   //session->lock();

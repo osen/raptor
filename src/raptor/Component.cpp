@@ -28,6 +28,7 @@ std::string Component::generateStyle()
   //if(topPadding > 0) ss << "padding-top: " << topPadding << "px;";
   //if(bottomPadding > 0) ss << "padding-bottom: " << bottomPadding << "px;";
   //ss << "width: 100%; height: 100%";
+  if(width > 0) ss << "width: " << width << "px;";
 
   return ss.str();
 }
@@ -59,6 +60,11 @@ void Component::getPadding(int& left, int& right, int& top, int& bottom)
 void Component::setBorderWidth(int width)
 {
   this->borderWidth = width;
+}
+
+void Component::setWidth(int width)
+{
+  this->width = width;
 }
 
 }
