@@ -16,6 +16,8 @@ int Application::begin_request_handler(struct mg_connection* conn)
   mg_request_info* request_info = mg_get_request_info(conn);
   Application* context = (Application*)request_info->user_data;
   std::shared_ptr<mongoose::PostData> postData;
+  std::shared_ptr<Session> session;
+  std::shared_ptr<Form> form;
 
   if(request_info->request_method == std::string("POST"))
   {
@@ -28,8 +30,29 @@ int Application::begin_request_handler(struct mg_connection* conn)
 
     if(sessionId.length() > 0)
     {
-      // TODO populate session
+      for(size_t i = 0; i < context->sessions.size(); i++)
+      {
+        std::shared_ptr<Session> s = context->sessions.at(i);
+
+        if(session->getId() == sessionId)
+        {
+          session = s;
+          break;
+        }
+      }
     }
+  }
+
+  if(session)
+  {
+    form = session->getForm();
+  }
+  else
+  {
+    session = std::make_shared<Session>();
+    context->sessions.push_back(session);
+    form = context->startInfo->createForm();
+    session->setForm(form);
   }
 
   //std::cout << request_info->uri << std::endl;
@@ -41,7 +64,7 @@ int Application::begin_request_handler(struct mg_connection* conn)
   // If not exists, create new session and add new startInfo form.
   //session->lock();
 
-  std::shared_ptr<Form> form = context->startInfo->createForm();
+  //std::shared_ptr<Form> form = context->startInfo->createForm();
   //session->setForm(form);
   std::shared_ptr<Component> base = form;
   std::stringstream ss;

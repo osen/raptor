@@ -16,6 +16,7 @@ add_library(raptor
   src/raptor/TextBox.cpp
   src/raptor/mongoose.c
   src/raptor/mongoosemm.cpp
+  src/raptor/Session.cpp
 )
 
 if(WIN32)
